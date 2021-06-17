@@ -22,7 +22,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject bomb;
 
-    List<GameObject> objectList = new List<GameObject>();
+    private List<GameObject> objectList = new List<GameObject>();
 
     [SerializeField]
     private List<int> freeGridSpaces = new List<int>();
@@ -76,13 +76,50 @@ public class SpawnManager : MonoBehaviour
         float horizontalPosition = position % 10;
         float verticalPosition = position - position % 10;
 
-        if (Random.Range(0, 100) < bombSpawnRate)
+        bool isBombSpawned = Random.Range(0, 100) < bombSpawnRate;
+        string objectName;
+        if (isBombSpawned)
         {
-            SpawnBomb(horizontalPosition, verticalPosition, position);
+            objectName = "Bomb";
         }
         else
         {
-            SpawnBall(horizontalPosition, verticalPosition, position);
+            objectName = "Ball";
+        }
+
+
+        GameObject newObject = null;
+        foreach(GameObject oldObject in objectList)
+        {
+            if (!oldObject.activeInHierarchy && oldObject.name == objectName)
+            {
+                newObject = oldObject;
+            }
+        }
+
+
+
+        if (newObject == null)
+        {
+            if (isBombSpawned)
+            {
+                SpawnBomb(horizontalPosition, verticalPosition, position);
+            }
+            else
+            {
+                SpawnBall(horizontalPosition, verticalPosition, position);
+            }
+        }
+        else
+        {
+            if (isBombSpawned)
+            {
+                ReSpawnBomb(horizontalPosition, verticalPosition, position, newObject);
+            }
+            else
+            {
+                ReSpawnBall(horizontalPosition, verticalPosition, position, newObject);
+            }
         }
 
         freeGridSpaces.RemoveAt(randomPostion);
@@ -112,6 +149,25 @@ public class SpawnManager : MonoBehaviour
         newball.GetComponent<TargetController>().Position = position;
         newball.GetComponent<TargetController>().LifeTimerMulti = lifeTimerMulti;
         objectList.Add(newball);
+    }
+
+    private void ReSpawnBomb(float horizontalPosition, float verticalPosition, int position, GameObject newobject)
+    {
+        newobject.transform.position = new Vector3(horizontalPosition * 10, 0, verticalPosition);
+       // GameObject newbomb = Instantiate(bomb, new Vector3(horizontalPosition * 10, 0, verticalPosition), Quaternion.identity);
+        newobject.GetComponent<EnemyController>().Position = position;
+        // objectList.Add(newbomb);
+        newobject.SetActive(true);
+    }
+
+    private void ReSpawnBall(float horizontalPosition, float verticalPosition, int position, GameObject newobject)
+    {
+        newobject.transform.position = new Vector3(horizontalPosition * 10, 0, verticalPosition);
+       // GameObject newball = Instantiate(ball, new Vector3(horizontalPosition * 10, 0, verticalPosition), Quaternion.identity);
+        newobject.GetComponent<TargetController>().Position = position;
+        newobject.GetComponent<TargetController>().LifeTimerMulti = lifeTimerMulti;
+        // objectList.Add(newball);
+        newobject.SetActive(true);
     }
 
     private void SpawnTimeFix()

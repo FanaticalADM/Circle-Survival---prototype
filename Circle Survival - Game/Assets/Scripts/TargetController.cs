@@ -45,6 +45,11 @@ public class TargetController : MonoBehaviour
         CheckGameOver();
     }
 
+    private void OnEnable()
+    {
+        LifeTimerSetup();
+    }
+
     private void DestroyBall()
     {
         Instantiate(clickedParticle, transform.position, Quaternion.identity);
@@ -76,7 +81,8 @@ public class TargetController : MonoBehaviour
             GameManager.instance.FeedbackRespond("PHEW");
 
         ScoreManager.instance.ScoreChange(scoreValue);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+       // Destroy(gameObject);
     }
 
     private void OnMouseDown()

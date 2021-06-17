@@ -20,11 +20,22 @@ public class EnemyController : MonoBehaviour
         TouchControll();
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(DestroyMe());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(DestroyMe());
+    }
+
     IEnumerator DestroyMe()
     {
         yield return new WaitForSeconds(lifeTimer);
         SpawnManager.instance.FreeGridSpaces.Add(position);
-        Destroy(gameObject);
+        // Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     private void CheckRayCast(Vector3 input)
