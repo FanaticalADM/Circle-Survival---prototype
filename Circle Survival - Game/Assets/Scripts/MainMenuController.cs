@@ -40,5 +40,4 @@ public class MainMenuController : MonoBehaviour
     {
         highScoreTMP.text = $"High Score: {ScoreManager.instance.HighScore} \n press to reset";
     }
-
 }

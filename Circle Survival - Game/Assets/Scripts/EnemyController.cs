@@ -27,14 +27,13 @@ public class EnemyController : MonoBehaviour
 
     private void OnDisable()
     {
-        StopCoroutine(DestroyMe());
+        StopAllCoroutines();
     }
 
     IEnumerator DestroyMe()
     {
         yield return new WaitForSeconds(lifeTimer);
         SpawnManager.instance.FreeGridSpaces.Add(position);
-        // Destroy(gameObject);
         gameObject.SetActive(false);
     }
 

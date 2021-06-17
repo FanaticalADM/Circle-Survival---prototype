@@ -19,18 +19,18 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    public event Action<string> onFeedbackRespond;
-    public void FeedbackRespond(string feedback)
+    public event Action<float> onFeedbackRespond;
+    public void FeedbackRespond(float responseTime)
     {
         if (onFeedbackRespond != null)
-            onFeedbackRespond(feedback);
+            onFeedbackRespond(responseTime);
     }
 
-    public event Action onTargetClick;
-    public void TargetClick()
+    public event Action<Transform> onTargetClick;
+    public void TargetClick(Transform newposition)
     {
         if (onTargetClick != null)
-            onTargetClick();
+            onTargetClick(newposition);
     }
 
 

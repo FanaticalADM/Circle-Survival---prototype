@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class TargetController : MonoBehaviour
 {
-    [SerializeField]
-    private ParticleSystem clickedParticle;
-
     private float lifeTimer;
 
     private float lifeTimerMulti;
@@ -22,12 +19,6 @@ public class TargetController : MonoBehaviour
 
     [SerializeField]
     private int scoreValue = 1;
-
-    private float awesomeClick=0.8f;
-    private float greatClisk=0.7f;
-    private float goodClick=0.3f;
-    private float badClick = 0.2f;
-    private float verybadClick = 0.1f;
 
     private Collider thisCollider;
 
@@ -52,37 +43,12 @@ public class TargetController : MonoBehaviour
 
     private void DestroyBall()
     {
-        Instantiate(clickedParticle, transform.position, Quaternion.identity);
         float lifeTimeProcentage = currentLifeTimer / lifeTimer;
-        GameManager.instance.TargetClick();
+        GameManager.instance.TargetClick(gameObject.transform);
         SpawnManager.instance.FreeGridSpaces.Add(position);
-
-        if (lifeTimeProcentage > awesomeClick)
-        {
-            GameManager.instance.FeedbackRespond("AWESOME");
-        }
-        else if (lifeTimeProcentage > greatClisk)
-        {
-            GameManager.instance.FeedbackRespond("GREAT");
-        }
-        else if (lifeTimeProcentage > goodClick)
-        {
-            GameManager.instance.FeedbackRespond("GOOD");
-        }
-        else if (lifeTimeProcentage > badClick)
-        {
-            GameManager.instance.FeedbackRespond("KEEP UP");
-        }
-        else if (lifeTimeProcentage > verybadClick)
-        {
-            GameManager.instance.FeedbackRespond("SO CLOSE");
-        }
-        else
-            GameManager.instance.FeedbackRespond("PHEW");
-
+        GameManager.instance.FeedbackRespond(lifeTimeProcentage);
         ScoreManager.instance.ScoreChange(scoreValue);
         gameObject.SetActive(false);
-       // Destroy(gameObject);
     }
 
     private void OnMouseDown()

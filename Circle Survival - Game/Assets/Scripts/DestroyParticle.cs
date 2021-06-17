@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DestroyParticle : MonoBehaviour
 {
-    private float currentTime; 
+    private float currentTime;
 
     // Update is called once per frame
     void Update()

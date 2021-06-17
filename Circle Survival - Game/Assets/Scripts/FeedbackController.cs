@@ -43,22 +43,38 @@ public class FeedbackController : MonoBehaviour
         FeedbackTextStyle();
     }
 
-    private void CheckFeedback(string feedback)
+    private void CheckFeedback(float feedback)
     {
-        textComponent.text = feedback;
-        
-        if (feedback == "AWESOME") 
+        if (feedback > 0.7)
+        {
             textStatus = TextStatus.Awesome;
-        if (feedback == "GREAT")
+            textComponent.text = "AWESOME";
+        }
+        else if (feedback > 0.5)
+        {
             textStatus = TextStatus.Great;
-        if (feedback == "GOOD")
+            textComponent.text = "GREATE";
+        }
+        else if (feedback > 0.3)
+        {
             textStatus = TextStatus.Good;
-        if (feedback == "KEEP UP")
+            textComponent.text = "GOOD";
+        }
+        else if (feedback > 0.2)
+        {
             textStatus = TextStatus.Bad;
-        if (feedback == "PHEW")
+            textComponent.text = "KEEP UP";
+        }
+        else if (feedback > 0.1)
+        {
             textStatus = TextStatus.VeryBad;
-        if (feedback == "SO CLOSE")
+            textComponent.text = "ALMOST";
+        }
+        else
+        {
             textStatus = TextStatus.Phew;
+            textComponent.text = "PHEW";
+        }
     }
 
     private void FeedbackTextStyle()

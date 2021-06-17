@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null && instance!= this)
+        if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
             return;
@@ -21,18 +21,24 @@ public class SpawnManager : MonoBehaviour
     private GameObject ball;
     [SerializeField]
     private GameObject bomb;
+    [SerializeField]
+    private ParticleSystem fireworks;
 
     private List<GameObject> objectList = new List<GameObject>();
+    private List<ParticleSystem> particleList = new List<ParticleSystem>();
 
     [SerializeField]
     private List<int> freeGridSpaces = new List<int>();
     public List<int> FreeGridSpaces { get { return freeGridSpaces; } set { freeGridSpaces = value; } }
 
-    [SerializeField] [Range(0,4)]
+    [SerializeField]
+    [Range(0, 4)]
     private int rows = 4;
-    [SerializeField] [Range(0, 9)]
+    [SerializeField]
+    [Range(0, 9)]
     private int minimumCollumn = 0;
-    [SerializeField] [Range(0,9)]
+    [SerializeField]
+    [Range(0, 9)]
     private int maximumCollumn = 9;
 
     [SerializeField]
@@ -47,8 +53,8 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         GameManager.instance.onGameOver += DestroyAllGameOver;
-
-        FreeGridSpacesSetup(rows,minimumCollumn,maximumCollumn);
+        GameManager.instance.onTargetClick += SpawnFireworks;
+        FreeGridSpacesSetup(rows, minimumCollumn, maximumCollumn);
         StartCoroutine(Spawner());
     }
 
@@ -63,9 +69,9 @@ public class SpawnManager : MonoBehaviour
         while (true)
         {
             if (freeGridSpaces.Count != 0)
-            SpawnObject();
+                SpawnObject();
             yield return new WaitForSeconds(spawnTime);
-            
+
         }
     }
 
@@ -80,16 +86,16 @@ public class SpawnManager : MonoBehaviour
         string objectName;
         if (isBombSpawned)
         {
-            objectName = "Bomb";
+            objectName = "Bomb(Clone)";
         }
         else
         {
-            objectName = "Ball";
+            objectName = "Ball(Clone)";
         }
 
 
         GameObject newObject = null;
-        foreach(GameObject oldObject in objectList)
+        foreach (GameObject oldObject in objectList)
         {
             if (!oldObject.activeInHierarchy && oldObject.name == objectName)
             {
@@ -128,7 +134,7 @@ public class SpawnManager : MonoBehaviour
 
     private void DestroyAllGameOver()
     {
-        for (int i = 0; i < objectList.Count; i++) 
+        for (int i = 0; i < objectList.Count; i++)
         {
             Destroy(objectList[i].gameObject);
         }
@@ -154,19 +160,15 @@ public class SpawnManager : MonoBehaviour
     private void ReSpawnBomb(float horizontalPosition, float verticalPosition, int position, GameObject newobject)
     {
         newobject.transform.position = new Vector3(horizontalPosition * 10, 0, verticalPosition);
-       // GameObject newbomb = Instantiate(bomb, new Vector3(horizontalPosition * 10, 0, verticalPosition), Quaternion.identity);
         newobject.GetComponent<EnemyController>().Position = position;
-        // objectList.Add(newbomb);
         newobject.SetActive(true);
     }
 
     private void ReSpawnBall(float horizontalPosition, float verticalPosition, int position, GameObject newobject)
     {
         newobject.transform.position = new Vector3(horizontalPosition * 10, 0, verticalPosition);
-       // GameObject newball = Instantiate(ball, new Vector3(horizontalPosition * 10, 0, verticalPosition), Quaternion.identity);
         newobject.GetComponent<TargetController>().Position = position;
         newobject.GetComponent<TargetController>().LifeTimerMulti = lifeTimerMulti;
-        // objectList.Add(newball);
         newobject.SetActive(true);
     }
 
@@ -186,16 +188,21 @@ public class SpawnManager : MonoBehaviour
             maxCollumn = temporary;
         }
 
-        for (int i = 0; i < numberOfRows*10; i++)
+        for (int i = 0; i < numberOfRows * 10; i++)
         {
             int checkCollumn = i % 10;
-            if (checkCollumn >= minCollumn && checkCollumn <= maxCollumn) 
-            freeGridSpaces.Add(i);
+            if (checkCollumn >= minCollumn && checkCollumn <= maxCollumn)
+                freeGridSpaces.Add(i);
         }
     }
 
     private void OnDestroy()
     {
         GameManager.instance.onGameOver -= DestroyAllGameOver;
+    }
+
+    void SpawnFireworks(Transform newposition)
+    {
+            ParticleSystem newfireworks = Instantiate(fireworks, newposition.position, Quaternion.identity);
     }
 }

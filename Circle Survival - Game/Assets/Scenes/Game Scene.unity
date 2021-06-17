@@ -1956,6 +1956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 8379899811413329509, guid: 68cc68ba859229f428ad926808991357, type: 3}
   bomb: {fileID: 3042994245785371964, guid: f4c12d94401b8ab43ac8a5112495093c, type: 3}
+  fireworks: {fileID: 9197181747560613142, guid: 8005caead2abeb4428e785000fb14141, type: 3}
   freeGridSpaces: 
   rows: 4
   minimumCollumn: 0
