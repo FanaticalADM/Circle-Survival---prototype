@@ -140,9 +140,7 @@ public class FeedbackController : MonoBehaviour
                 {
                     meshInfo.colors32[index] = new Color(1f, 0f, 0f);
                 }
-
             }
-
         }
 
         for (int i = 0; i < textInfo.meshInfo.Length; i++)
