@@ -13,8 +13,8 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.instance.onGameOver += ExplosionSound;
-        ScoreManager.instance.onScoreChange += TargetSound;
+        GameManager.Instance.onGameOver += ExplosionSound;
+        ScoreManager.Instance.onScoreChange += TargetSound;
         audioSource = gameObject.GetComponent<AudioSource>();
     }
 
@@ -30,7 +30,7 @@ public class SoundManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.instance.onGameOver -= ExplosionSound;
-        ScoreManager.instance.onScoreChange -= TargetSound;
+        GameManager.Instance.onGameOver -= ExplosionSound;
+        ScoreManager.Instance.onScoreChange -= TargetSound;
     }
 }

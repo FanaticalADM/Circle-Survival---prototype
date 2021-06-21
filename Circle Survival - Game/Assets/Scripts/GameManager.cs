@@ -6,7 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    private static GameManager instance;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+        set
+        {
+            instance = value;
+        }
+    }
 
     private void Awake()
     {
@@ -51,6 +63,6 @@ public void GameOver()
     public void GameReset()
     {
         SceneManager.LoadScene("Menu");
-        ScoreManager.instance.Score = 0;
+        ScoreManager.Instance.Score = 0;
     }
 }

@@ -44,10 +44,10 @@ public class TargetController : MonoBehaviour
     private void DestroyBall()
     {
         float lifeTimeProcentage = currentLifeTimer / lifeTimer;
-        GameManager.instance.TargetClick(gameObject.transform);
-        SpawnManager.instance.FreeGridSpaces.Add(position);
-        GameManager.instance.FeedbackRespond(lifeTimeProcentage);
-        ScoreManager.instance.ScoreChange(scoreValue);
+        GameManager.Instance.TargetClick(gameObject.transform);
+        SpawnManager.Instance.FreeGridSpaces.Add(position);
+        GameManager.Instance.FeedbackRespond(lifeTimeProcentage);
+        ScoreManager.Instance.ScoreChange(scoreValue);
         gameObject.SetActive(false);
     }
 
@@ -97,7 +97,7 @@ public class TargetController : MonoBehaviour
     {
         if (currentLifeTimer < 0)
         {
-            GameManager.instance.GameOver();
+            GameManager.Instance.GameOver();
         }
     }
 

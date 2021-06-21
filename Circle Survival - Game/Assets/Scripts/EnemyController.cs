@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
     IEnumerator DestroyMe()
     {
         yield return new WaitForSeconds(lifeTimer);
-        SpawnManager.instance.FreeGridSpaces.Add(position);
+        SpawnManager.Instance.FreeGridSpaces.Add(position);
         gameObject.SetActive(false);
     }
 
@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
 
     private void ClickedOnBomb()
     {
-        GameManager.instance.GameOver();
+        GameManager.Instance.GameOver();
     }
 
     private void OnMouseDown()

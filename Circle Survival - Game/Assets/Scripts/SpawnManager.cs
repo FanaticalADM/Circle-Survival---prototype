@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public static SpawnManager instance;
+    private static SpawnManager instance;
+
+    public static SpawnManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+        set
+        {
+            instance = value;
+        }
+    }
 
     private void Awake()
     {
@@ -52,8 +64,8 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.instance.onGameOver += DestroyAllGameOver;
-        GameManager.instance.onTargetClick += SpawnFireworks;
+        GameManager.Instance.onGameOver += DestroyAllGameOver;
+        GameManager.Instance.onTargetClick += SpawnFireworks;
         FreeGridSpacesSetup(rows, minimumCollumn, maximumCollumn);
         StartCoroutine(Spawner());
     }
@@ -198,7 +210,7 @@ public class SpawnManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.instance.onGameOver -= DestroyAllGameOver;
+        GameManager.Instance.onGameOver -= DestroyAllGameOver;
     }
 
     void SpawnFireworks(Transform newposition)

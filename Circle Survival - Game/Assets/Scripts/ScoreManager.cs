@@ -5,7 +5,19 @@ using System;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager instance;
+    private static ScoreManager instance;
+
+    public static ScoreManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+        set
+        {
+            instance = value;
+        }
+    }
 
     private void Awake()
     {

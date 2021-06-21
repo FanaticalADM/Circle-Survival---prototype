@@ -38,8 +38,8 @@ public class UIController : MonoBehaviour
         timeTMP = timeText.GetComponent<TextMeshProUGUI>();
         highScoreTMP = highScoreText.GetComponent<TextMeshProUGUI>();
 
-        ScoreManager.instance.onScoreChange += ScoreValueUpdate;
-        GameManager.instance.onGameOver += ShowGameOverScreen;
+        ScoreManager.Instance.onScoreChange += ScoreValueUpdate;
+        GameManager.Instance.onGameOver += ShowGameOverScreen;
     }
 
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class UIController : MonoBehaviour
 
     private void ScoreValueUpdate()
     {
-        scoreTMP.text = ScoreManager.instance.Score.ToString();
+        scoreTMP.text = ScoreManager.Instance.Score.ToString();
     }
 
     private void ShowGameOverScreen()
@@ -61,13 +61,13 @@ public class UIController : MonoBehaviour
         highScoreText.SetActive(true);
         hud.SetActive(false);
 
-        if (ScoreManager.instance.NewHighScore)
+        if (ScoreManager.Instance.NewHighScore)
         {
-            highScoreTMP.text = $"NEW HIGH SCORE: {ScoreManager.instance.Score}";
+            highScoreTMP.text = $"NEW HIGH SCORE: {ScoreManager.Instance.Score}";
         }
         else
         {
-            highScoreTMP.text = $"YOUR SCORE: {ScoreManager.instance.Score}";
+            highScoreTMP.text = $"YOUR SCORE: {ScoreManager.Instance.Score}";
         }
     }
 
@@ -90,8 +90,8 @@ public class UIController : MonoBehaviour
 
     private void OnDestroy()
     {
-        ScoreManager.instance.onScoreChange -= ScoreValueUpdate;
-        GameManager.instance.onGameOver -= ShowGameOverScreen;
+        ScoreManager.Instance.onScoreChange -= ScoreValueUpdate;
+        GameManager.Instance.onGameOver -= ShowGameOverScreen;
     }
 
 }

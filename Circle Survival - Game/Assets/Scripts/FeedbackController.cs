@@ -34,7 +34,7 @@ public class FeedbackController : MonoBehaviour
         textComponent.text = "CIRCLE SURVIVAL";
         textStatus = TextStatus.Title;
 
-        GameManager.instance.onFeedbackRespond += CheckFeedback;
+        GameManager.Instance.onFeedbackRespond += CheckFeedback;
     }
 
     // Update is called once per frame
@@ -154,6 +154,6 @@ public class FeedbackController : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.instance.onFeedbackRespond -= CheckFeedback;
+        GameManager.Instance.onFeedbackRespond -= CheckFeedback;
     }
 }

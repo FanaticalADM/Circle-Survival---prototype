@@ -26,7 +26,7 @@ public class MainMenuController : MonoBehaviour
     // High Score button
     public void DeleteHighScore()
     {
-        ScoreManager.instance.ResetHighScore();
+        ScoreManager.Instance.ResetHighScore();
         HighScoreSetup();
     }
 
@@ -38,6 +38,6 @@ public class MainMenuController : MonoBehaviour
 
     private void HighScoreSetup()
     {
-        highScoreTMP.text = $"High Score: {ScoreManager.instance.HighScore} \n press to reset";
+        highScoreTMP.text = $"High Score: {ScoreManager.Instance.HighScore} \n press to reset";
     }
 }
